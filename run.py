@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+import argparse
 from knn.scaler.min_max_normalization_scaler import MinMaxNormalizationScaler
 from knn.knn_classifier import KNNClassifier, EUCLIDEAN_DISTANCE_METRIC, MANHATTAN_DISTANCE_METRIC
 
@@ -32,25 +33,27 @@ def prepare_data(df: pd.DataFrame):
     features = features.apply(scaler.scale)
     return features, labels
 
-def trainKnnClassifier():
+def trainKnnClassifier(n_neighbors, distance_metric):
     """
     Trains a KNN classifier on the training data which, beyond scaling does nothing but save the data to memory
     """
     df_train = get_data_frame_from_file("train")
     features, labels = prepare_data(df_train)
-    knn = KNNClassifier(n_neighbors=10, distance_metric=EUCLIDEAN_DISTANCE_METRIC)
+    knn = KNNClassifier(n_neighbors=n_neighbors, distance_metric=distance_metric)
     knn.fit(features, labels)
 
     return knn
 
-def testKnnClassifier():
+def testKnnClassifier(n_neighbors, distance_metric):
     """
     Tests the KNN classifier on the test data
     """
+    print(f"Running KNN with {n_neighbors} neighbors and {distance_metric} distance function")
+    
     df_test = get_data_frame_from_file("test")
     features, labels = prepare_data(df_test)
     
-    knnClassifier = trainKnnClassifier()
+    knnClassifier = trainKnnClassifier(n_neighbors=n_neighbors, distance_metric=distance_metric)
     predictions = knnClassifier.predict(features)
     
     # Calculate statistics
@@ -62,7 +65,14 @@ def testKnnClassifier():
     print(f"Total: {total_predictions}")
     print(f"Accuracy: {accuracy:.2%}") # 2 decimal place precision
 
-testKnnClassifier()
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--n_neighbors', type=int, default=10)
+    parser.add_argument('--distance_metric', type=str, default="euclidean")
+    
+    args = parser.parse_args()
+    
+    testKnnClassifier(n_neighbors=args.n_neighbors, distance_metric=args.distance_metric)
 
 
 

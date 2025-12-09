@@ -10,6 +10,9 @@ class MinMaxNormalizationScaler():
     """
     
     def scale(self, series: pd.Series):
+        """
+        Scales all values in a given column to a normalized magnitude between 0-1
+        """
         #https://pandas.pydata.org/docs/reference/api/pandas.Series.max.html
         max = series.max()
         min = series.min()

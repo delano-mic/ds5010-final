@@ -39,6 +39,9 @@ class KNNClassifier():
         self.training_labels = training_labels.values
 
     def predict(self, test_data_points: pd.DataFrame) -> pd.Series:
+        """
+        Given a data frame of test data points this function will predict, 0/1, if each is classified as diabetes or not
+        """
         predictions = []
         
         # Make a numpy array

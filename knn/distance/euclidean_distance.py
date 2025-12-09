@@ -9,7 +9,10 @@ class EuclideanDistance(AbstractDistance):
     """
 
     def calculate_distances(self, training_data: np.ndarray, test_point: np.ndarray) -> np.ndarray:
-
+        """
+        Calculate the distances between a test point and all training data points.
+        """
+        
         # Euclidena Distance: https://www.google.com/search?q=how+to+apply+the+euclidean+distance+function+to+a+numpy+array&oq=how+to+apply+the+euclidean+distance+function+to+a+numpy+array
         # Square root in python: https://www.google.com/search?q=how+to+get+the+square+root+in+python&oq=how+to+get+the+square+root+in+pyth&gs_lcrp=EgZjaHJvbWUqBwgAEAAYgAQyBwgAEAAYgAQyBggBEEUYOTIICAIQABgWGB4yCAgDEAAYFhgeMggIBBAAGBYYHjIICAUQABgWGB4yCAgGEAAYFhgeMggIBxAAGBYYHjIICAgQABgWGB4yCAgJEAAYFhge0gEIODkwOGowajeoAgCwAgA&sourceid=chrome&ie=UTF-8
         difference = training_data - test_point
